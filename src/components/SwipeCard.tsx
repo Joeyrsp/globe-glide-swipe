@@ -19,24 +19,34 @@ const SwipeCard: React.FC<SwipeCardProps> = ({ children, onSwipeLeft, onSwipeRig
     config: { friction: 50, tension: 500 }
   }));
 
-  const bind = useDrag(({ active, movement: [mx], direction: [xDir], velocity }) => {
+  const bind = useDrag(({ active, movement: [mx], direction: [xDir], velocity, cancel }) => {
     const trigger = velocity > 0.2;
     const isGone = !active && trigger;
     
     if (isGone) {
-      if (xDir < 0) {
-        onSwipeLeft();
-      } else {
-        onSwipeRight();
-      }
+      // Animate off screen completely
+      api.start({
+        x: (200 + window.innerWidth) * xDir,
+        rot: xDir * 10 * velocity,
+        scale: 1,
+        config: { friction: 50, tension: 200 },
+        onRest: () => {
+          // Call the callback after animation completes
+          if (xDir < 0) {
+            onSwipeLeft();
+          } else {
+            onSwipeRight();
+          }
+        }
+      });
+    } else {
+      api.start({
+        x: active ? mx : 0,
+        rot: active ? mx / 100 : 0,
+        scale: active ? 1.05 : 1,
+        config: { friction: 50, tension: active ? 800 : 500 }
+      });
     }
-    
-    api.start({
-      x: isGone ? (200 + window.innerWidth) * xDir : active ? mx : 0,
-      rot: active ? mx / 100 + (isGone ? xDir * 10 * velocity : 0) : 0,
-      scale: active ? 1.1 : 1,
-      config: { friction: 50, tension: active ? 800 : isGone ? 200 : 500 }
-    });
   });
 
   return (
@@ -54,9 +64,9 @@ const SwipeCard: React.FC<SwipeCardProps> = ({ children, onSwipeLeft, onSwipeRig
           scale: scale,
         }}
       >
-        <Card className="w-80 h-96 cursor-grab active:cursor-grabbing">
+        <div className="w-80 h-96 cursor-grab active:cursor-grabbing bg-white rounded-3xl shadow-lg overflow-hidden">
           {children}
-        </Card>
+        </div>
       </animated.div>
     </animated.div>
   );
