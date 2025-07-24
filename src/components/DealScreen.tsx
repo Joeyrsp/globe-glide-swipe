@@ -17,42 +17,22 @@ const DealScreen: React.FC<DealScreenProps> = ({ isOpen, onClose, onBack, destin
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="max-w-sm mx-auto p-0 overflow-hidden rounded-3xl">
-        <div className="bg-gradient-to-br from-pink-300 via-orange-300 to-yellow-300 p-6 space-y-4">
+        <div className=" p-6 space-y-4">
           <DialogHeader>
             <div className="flex items-center justify-between">
-              <Button variant="ghost" size="icon" onClick={onBack} className="text-white">
-                <ArrowLeft className="w-6 h-6" />
-              </Button>
-              <DialogTitle className="text-center text-xl text-white font-bold">
-                Your Deal
+              <DialogTitle className="text-center text-xl  font-bold">
+                ♡ Your Heart Picked {destination.name} ♡
+Now Let’s Make It Official 💍🌅
               </DialogTitle>
               <div className="w-10"></div>
             </div>
           </DialogHeader>
+
+          <img  src='/deal.png' className='max-w-[80%] m-auto'/>
+
           
           <div className="bg-white rounded-2xl p-4 space-y-4">
-            <div className="relative">
-              <img 
-                src={`https://images.unsplash.com/${destination.imageUrl}?w=400&h=200&fit=crop`}
-                alt={destination.name}
-                className="w-full h-32 object-cover rounded-lg"
-              />
-              <div className="absolute top-2 right-2 bg-red-500 text-white px-2 py-1 rounded-full text-xs font-bold">
-                -75%
-              </div>
-            </div>
             
-            <div className="text-center space-y-2">
-              <h3 className="text-lg font-bold text-gray-800">{destination.name}</h3>
-              <p className="text-gray-600 text-sm">{destination.region}</p>
-            </div>
-            
-            <div className="bg-orange-50 p-4 rounded-lg text-center">
-              <p className="text-2xl font-bold text-orange-600">
-                {destination.dealPrice || '$299'}
-              </p>
-              <p className="text-sm text-gray-600">Round trip • 14 day getaway</p>
-            </div>
             
             <div className="space-y-2">
               <Button className="w-full bg-orange-400 hover:bg-orange-500 text-white rounded-xl py-3">

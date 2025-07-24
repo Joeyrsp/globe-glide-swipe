@@ -112,7 +112,7 @@ const Index = () => {
 
   if (!currentItem) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-pink-300 via-orange-300 to-yellow-300 p-4">
+      <div className="min-h-screen flex items-center justify-center p-4">
         <div className="bg-white rounded-3xl p-8 text-center space-y-4 max-w-sm shadow-2xl">
           <h2 className="text-2xl font-bold text-gray-800">That's all for now! ✈️</h2>
           <p className="text-gray-600">Check your profile to see your travel preferences and wishlist.</p>
@@ -128,7 +128,7 @@ const Index = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-pink-300 via-orange-300 to-yellow-300">
+    <div className="min-h-screen">
       <MatchModal 
         isOpen={!!matchedDestination && !showDeal}
         onClose={() => setMatchedDestination(null)}
@@ -217,21 +217,27 @@ const Index = () => {
 
       {/* Action Buttons */}
       <div className="flex justify-center gap-8 pb-8">
-        <Button
-          size="lg"
-          variant="outline"
-          className="rounded-full w-16 h-16 shadow-lg bg-white border-2 border-white"
-          onClick={handleSwipeLeft}
-        >
-          <X className="w-8 h-8 text-red-500" />
-        </Button>
-        <Button
-          size="lg"
-          className="rounded-full w-16 h-16 shadow-lg bg-white hover:bg-gray-50 border-2 border-white"
-          onClick={handleSwipeRight}
-        >
-          <Heart className="w-8 h-8 text-green-500" />
-        </Button>
+        <div className='flex flex-col gap-2 text-white text-center font-bold'>
+          <Button
+            size="lg"
+            variant="outline"
+            className="rounded-full w-16 h-16 shadow-lg bg-white border-2 border-white"
+            onClick={handleSwipeLeft}
+          >
+            <X className="text-black" size={32} />
+          </Button>
+          Next Stop
+        </div>
+        <div className='flex flex-col gap-2 text-white text-center font-bold'>
+          <Button
+            size="lg"
+            className="rounded-full w-16 h-16 shadow-lg bg-white hover:bg-gray-50 border-2 border-white"
+            onClick={handleSwipeRight}
+          >
+            <Heart className="text-black" size={32} />
+          </Button>
+          I'm In!
+        </div>
       </div>
     </div>
   );
